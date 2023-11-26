@@ -1,0 +1,11 @@
+{
+    "files": [
+        "mainwindow.py",
+        "form.ui",
+        "models/repository.py",
+        "views/event_list_item.py",
+        "views/event_list_item.ui",
+        "views/event_list_item_delegate.py",
+        "models/event_model.py"
+    ]
+}
