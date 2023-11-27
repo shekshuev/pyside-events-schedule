@@ -1,7 +1,6 @@
 # This Python file uses the following encoding: utf-8
-from PySide6.QtCore import QObject, Qt
+from PySide6.QtCore import QObject, Qt, QModelIndex
 from PySide6.QtSql import QSqlDatabase, QSqlQuery, QSqlTableModel
-from datetime import datetime
 
 
 class Repository(QObject):
@@ -53,3 +52,7 @@ class Repository(QObject):
         query.addBindValue(event_type)
         if query.exec():
             self.__model.select()
+
+    def delete_event(self, index: QModelIndex):
+        self.__model.removeRow(index.row())
+        self.__model.select()

@@ -2,7 +2,7 @@
 import sys
 
 from PySide6.QtWidgets import QApplication, QMainWindow, QMessageBox, QDialog
-from PySide6.QtCore import Slot
+from PySide6.QtCore import Slot, QModelIndex
 from models.repository import Repository
 from views.event_list_item_delegate import EventListItemDelegate
 from views.add_event_dialog import AddEventDialog
@@ -30,8 +30,14 @@ class MainWindow(QMainWindow):
                 )
             sys.exit(1)
         model = self.repository.get_all_events()
-        self.ui.events_list_view.setItemDelegate(EventListItemDelegate(self.ui.events_list_view))
+        delegate = EventListItemDelegate(self.ui.events_list_view)
+        delegate.delete_clicked.connect(self.on_delete_event_button_clicked)
+        self.ui.events_list_view.setItemDelegate(delegate)
         self.ui.events_list_view.setModel(model)
+
+    @Slot(QModelIndex)
+    def on_delete_event_button_clicked(self, index):
+        self.repository.delete_event(index)
 
     @Slot()
     def on_add_new_event_button_clicked(self):

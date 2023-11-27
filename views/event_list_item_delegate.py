@@ -1,11 +1,11 @@
-from PySide6.QtWidgets import QAbstractItemDelegate
+from PySide6.QtWidgets import QStyledItemDelegate
 from PySide6.QtCore import QEvent, Signal, QModelIndex, QRect
 from models.event_type import EventType
 from views.event_list_item import EventListItem
 
-class EventListItemDelegate(QAbstractItemDelegate):
+class EventListItemDelegate(QStyledItemDelegate):
 
-    delete_button_clicked = Signal(QModelIndex)
+    delete_clicked = Signal(QModelIndex)
 
     def paint(self, painter, option, index):
         record = index.model().record(index.row())
@@ -30,17 +30,17 @@ class EventListItemDelegate(QAbstractItemDelegate):
         return item.sizeHint()
 
     def editorEvent(self, event, model, option, index):
-        self.delete_button_clicked.emit(index)
         if event.type() == QEvent.MouseButtonRelease:
-            click_pos = event.pos()
-            button_rect = self.__button.rect()
-            button_rect.moveTopLeft(option.widget.mapToGlobal(self.__button.rect().topLeft()))
-            print(click_pos, button_rect)
-#            if self.__button_rect.contains(click_pos):
-
-#                self.delete_button_clicked.emit(index)
-#                return True
-#            else:
-#                return False
+            click_global_pos = self.__button.mapToGlobal(event.pos())
+            click_global_pos.setX(click_global_pos.x() - option.widget.spacing())
+            click_global_pos.setY(click_global_pos.y() - option.widget.spacing())
+            button_rect = self.__button.geometry()
+            button_global_pos = self.__button.mapToGlobal(button_rect.topLeft())
+            global_button_rect = QRect(button_global_pos, button_rect.size())
+            if global_button_rect.contains(click_global_pos):
+                self.delete_clicked.emit(index)
+                return True
+            else:
+                return False
         else:
             return False
