@@ -38,7 +38,7 @@ class MainWindow(QMainWindow):
         dialog = AddEventDialog(self)
         if dialog.exec() == QDialog.DialogCode.Accepted:
             data = dialog.get_dialog_data()
-            self.repository.add_event(data["title"], data["description"])
+            self.repository.add_event(data["title"], data["description"], data["begin_date"], data["end_date"], data["event_type"])
 
 
 if __name__ == "__main__":

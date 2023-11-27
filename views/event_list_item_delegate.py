@@ -1,34 +1,25 @@
 from PySide6.QtWidgets import QAbstractItemDelegate
-from PySide6.QtCore import Qt
-
+from models.event_type import EventType
 from views.event_list_item import EventListItem
 
 class EventListItemDelegate(QAbstractItemDelegate):
     def setEditorData(self, editor, index):
-        record = index.model().record(index.row())
-        title = record.value("title")
-        description = record.value("description")
-        editor.set_title(title)
-        editor.set_description(description)
+        pass
 
     def setModelData(self, editor, model, index):
-        title = editor.get_title()
-        description = editor.get_description()
-        model.setData(index, (title, description), Qt.EditRole)
+        pass
 
     def createEditor(self, parent, option, index):
-        record = index.model().record(index.row())
-        title = record.value("title")
-        description = record.value("description")
-        item = EventListItem(title, description, self.parent())
-        item.setGeometry(option.rect)
-        return item
+        pass
 
     def paint(self, painter, option, index):
         record = index.model().record(index.row())
         title = record.value("title")
         description = record.value("description")
-        item = EventListItem(title, description, self.parent())
+        begin_date = record.value("begin_date")
+        end_date = record.value("end_date")
+        event_type = EventType[record.value("event_type")]
+        item = EventListItem(title, description, begin_date, end_date, event_type, self.parent())
         item.setGeometry(option.rect)
         item.render(painter, option.rect.topLeft())
 
@@ -36,7 +27,10 @@ class EventListItemDelegate(QAbstractItemDelegate):
         record = index.model().record(index.row())
         title = record.value("title")
         description = record.value("description")
-        item = EventListItem(title, description, self.parent())
+        begin_date = record.value("begin_date")
+        end_date = record.value("end_date")
+        event_type = EventType[record.value("event_type")]
+        item = EventListItem(title, description, begin_date, end_date, event_type, self.parent())
         return item.sizeHint()
 
     def updateEditorGeometry(self, editor, option, index):

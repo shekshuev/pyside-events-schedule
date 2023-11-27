@@ -39,7 +39,7 @@ class Repository(QObject):
         self.__model.select()
         return self.__model
 
-    def add_event(self, title, description, begin_date = int(datetime.now().timestamp()), end_date = None, event_type = ''):
+    def add_event(self, title: str, description: str, begin_date: int, end_date: int, event_type: str):
         query = QSqlQuery(self.__conn)
         query.prepare(
             """

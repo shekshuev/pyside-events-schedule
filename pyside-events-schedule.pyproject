@@ -8,6 +8,7 @@
         "views/event_list_item_delegate.py",
         "views/add_event_dialog.ui",
         "views/add_event_dialog.py",
-        "models/event_model.py"
+        "models/event_model.py",
+        "models/event_type"
     ]
 }

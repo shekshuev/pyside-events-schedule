@@ -2,24 +2,19 @@
 from PySide6.QtWidgets import QWidget
 
 from views.ui_event_list_item import Ui_Form
+from models.event_type import EventType
+
+from datetime import datetime
 
 
 class EventListItem(QWidget):
-    def __init__(self, title='', description='', parent=None):
+    def __init__(self, title: str, description: str, begin_date: int, end_date: int, event_type: EventType, parent=None):
         super().__init__(parent)
         self.ui = Ui_Form()
         self.ui.setupUi(self)
-        self.set_title(title)
-        self.set_description(description)
-
-    def get_title(self):
-        return self.ui.title_label.text()
-
-    def get_description(self):
-        return self.ui.description_label.text()
-
-    def set_title(self, title):
         self.ui.title_label.setText(title)
-
-    def set_description(self, description):
         self.ui.description_label.setText(description)
+        self.ui.begin_date_label.setText(f"С {str(datetime.fromtimestamp(begin_date))}")
+        self.ui.end_date_label.setText(f"по {str(datetime.fromtimestamp(end_date))}")
+        self.ui.event_type_label.setText(event_type.value)
+

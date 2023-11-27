@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Учет мероприятий</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -29,7 +29,7 @@
          <enum>QAbstractItemView::ScrollPerPixel</enum>
         </property>
         <property name="spacing">
-         <number>0</number>
+         <number>20</number>
         </property>
        </widget>
       </item>
@@ -51,7 +51,7 @@
         <item>
          <widget class="QPushButton" name="add_new_event_button">
           <property name="text">
-           <string>Add</string>
+           <string>Добавить</string>
           </property>
          </widget>
         </item>
@@ -67,7 +67,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>20</height>
+     <height>23</height>
     </rect>
    </property>
   </widget>
