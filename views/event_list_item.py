@@ -17,4 +17,8 @@ class EventListItem(QWidget):
         self.ui.begin_date_label.setText(f"С {str(datetime.fromtimestamp(begin_date))}")
         self.ui.end_date_label.setText(f"по {str(datetime.fromtimestamp(end_date))}")
         self.ui.event_type_label.setText(event_type.value)
+        self.ui.delete_button.clicked.connect(self.on_delete_button_clicked)
+
+    def on_delete_button_clicked(self):
+        print(123)
 
